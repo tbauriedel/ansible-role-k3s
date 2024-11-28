@@ -19,3 +19,14 @@
 
 - name: Flush handlers
   meta: flush_handlers
+
+- block:
+  - name: Wait for node-token
+    ansible.builtin.wait_for:
+      path: /var/lib/rancher/k3s/server/node-token
+
+  - name: Slurp cluster node-token
+    ansible.builtin.slurp:
+      src: /var/lib/rancher/k3s/server/node-token
+    register: _cluster_node_token
+  when: k3s_node_type == 'server'

@@ -19,3 +19,4 @@
     remote_src: true
     src: /etc/rancher/k3s/k3s.yaml
     dest: /root/.kube/config
+  when: k3s_node_type == 'server'

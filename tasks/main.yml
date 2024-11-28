@@ -1,5 +1,7 @@
 ---
-- ansible.builtin.import_tasks: k3s.yml
+- name: Include k3s installation
+  ansible.builtin.import_tasks: k3s.yml
 
-- ansible.builtin.import_tasks: kubectl.yml
+- name: Include kubelet installation
+  ansible.builtin.import_tasks: kubectl.yml
   when: k3s_install_kubectl | bool

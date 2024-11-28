@@ -7,7 +7,15 @@ After=network-online.target
 
 [Service]
 Type=exec
-ExecStart={{ k3s_executable }} {{ k3s_node_type }} }} {% if k3s_node_type == 'server' %} --cluster-init {% endif %}
+ExecStart={{ k3s_executable }} {{ k3s_node_type }} \
+{% if k3s_node_type == 'server' %}
+  --cluster-init \
+  {% endif %}
+{% if k3s_node_type == 'agent' %}
+  --server "https://{{ k3s_master }}:6443" \
+  --token "{{ hostvars[k3s_master]._cluster_node_token.content | b64decode | replace('\n', '') }}" \
+  --node-name "{{ ansible_fqdn }}"
+{% endif %}
 Restart=always
 RestartSec=5s
 
