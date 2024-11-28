@@ -1,0 +1,15 @@
+# /etc/systemd/system/k3s.service
+[Unit]
+Description=K3s
+Documentation=https://k3s.io
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=exec
+ExecStart={{ k3s_executable }} {{ k3s_node_type }} }} {% if k3s_node_type == 'server' %} --cluster-init {% endif %}
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

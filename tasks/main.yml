@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_tasks: k3s.yml
+
+- ansible.builtin.import_tasks: kubectl.yml
+  when: k3s_install_kubectl | bool

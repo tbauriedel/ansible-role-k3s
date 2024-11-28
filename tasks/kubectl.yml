@@ -1,0 +1,21 @@
+---
+- name: Download release
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/v{{ k3s_kubectl_version }}/bin/linux/amd64/kubectl"
+    dest: "{{ k3s_kubectl_executable }}"
+    mode: '755'
+    timeout: 60
+
+- name: Create /root/.kube
+  ansible.builtin.file:
+    state: directory
+    path: /root/.kube
+    mode: '0760'
+    owner: root
+    group: root
+
+- name: Copy k3s kubconfig to root
+  ansible.builtin.copy:
+    remote_src: true
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /root/.kube/config
