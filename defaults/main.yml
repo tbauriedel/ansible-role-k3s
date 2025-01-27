@@ -2,6 +2,7 @@
 k3s_version: 1.31.2+k3s1
 k3s_executable: /usr/local/bin/k3s
 k3s_node_type: server
+k3s_standalone_node: true
 k3s_master: # ansible inventory name of the cluster master
 
 k3s_install_kubectl: true
