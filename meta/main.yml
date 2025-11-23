@@ -1,0 +1,9 @@
+---
+dependencies: []
+galaxy_info:
+  role_name: k3s
+  author: tbauriedel
+  description: Simple k3s installation. Not more... 
+  license: "MIT"
+  galaxy_tags:
+    - k3s 
