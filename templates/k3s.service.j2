@@ -11,6 +11,9 @@ ExecStart={{ k3s_executable }} {{ k3s_node_type }} \
 {% if k3s_node_type == 'server' and k3s_standalone_node == false %}
   --cluster-init \
 {% endif %}
+{% if ansible_os_family == 'RedHat' %}
+  --selinux \
+{% endif %}
 {% if k3s_node_type == 'agent' %}
   --server "https://{{ k3s_master }}:6443" \
   --token "{{ hostvars[k3s_master]._cluster_node_token.content | b64decode | replace('\n', '') }}" \

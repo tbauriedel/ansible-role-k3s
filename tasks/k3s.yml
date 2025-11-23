@@ -17,6 +17,12 @@
     - systemctl daemon-reload
     - Restart k3s
 
+- name: Install container-selinux
+  ansible.builtin.package:
+    name: container-selinux
+    state: present
+  when: ansible_os_family == 'RedHat'
+
 - name: Flush handlers
   meta: flush_handlers
 
