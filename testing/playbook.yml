@@ -1,0 +1,6 @@
+---
+- name: k3s # noqa name[casing]
+  hosts: all
+  become: true
+  roles:
+    - tbauriedel.k3s

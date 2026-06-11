@@ -1,7 +1,10 @@
 ---
-- name: Include k3s installation
-  ansible.builtin.import_tasks: k3s.yml
+# k3s installed? k3s running? k3s server type?
+# install k3s
+# configure k3s
+# changes made that are only possible when new init?
+# start k3s
+# cluster status?
 
-- name: Include kubelet installation
-  ansible.builtin.import_tasks: kubectl.yml
-  when: k3s_install_kubectl | bool
+- name: Include pre-audit node/cluster status
+  ansible.builtin.include_tasks: pre-audit.yml
