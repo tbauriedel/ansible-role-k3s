@@ -1,7 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: Debug
-      ansible.builtin.debug:
-        msg: "Hello world"
+  roles:
+    - tbauriedel.k3s
+

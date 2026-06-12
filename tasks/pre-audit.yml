@@ -13,5 +13,5 @@
 
 - name: Check if k3s is running
   ansible.builtin.set_fact:
-    _k3s_running: "{{ ansible.facts.services[k3s].status == 'running' }}"
+    _k3s_running: "{{ ansible_facts.services['k3s'].status == 'running' }}"
   when: _k3s_installed

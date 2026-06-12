@@ -47,6 +47,14 @@ A makefile is shipped to lint the ansible role and test it against some hosts.
 - `make` to run the linters.
 - `make test` to install the role on your client and run the example playbook against local hosts (You will need to provide these hosts)
 
+For local testing, molecule can be used. Scenarios are defined inside [./molecule](./molecule).  
+Requirements:
+- apt install podman
+- python3 -m pip install molecule molecule-podman
+```bash
+molecule test
+```
+
 ## License 
 
 This project is licensed under the MIT License. See the LICENSE file for the full license text.
