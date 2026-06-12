@@ -1,3 +1,5 @@
+> Under development. Not finished yet!
+
 # ansible-role-k3s
 
 Install and configure k3s (standalone or cluster).
