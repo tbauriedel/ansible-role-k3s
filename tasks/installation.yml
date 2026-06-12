@@ -1,0 +1,15 @@
+---
+- name: Install os specific packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ k3s_os_packages }}"
+  when: k3s_os_packages | length > 0
+
+- name: Fetch k3s from source
+  ansible.builtin.get_url:
+    url: "{{ k3s_binary_source }}"
+    dest: "{{ k3s_binary_path }}"
+    mode: '0755'
+    owner: root
+    group: root

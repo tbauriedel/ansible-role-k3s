@@ -6,5 +6,25 @@
 # start k3s
 # cluster status?
 
+- name: Include os-specific variables
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family }}-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_lsb.id if ansible_lsb.id is defined else ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - default.yml
+      paths:
+        - "{{ role_path }}/vars"
+
 - name: Include pre-audit node/cluster status
   ansible.builtin.include_tasks: pre-audit.yml
+
+- name: Include k3s installation
+  ansible.builtin.include_tasks: installation.yml
+  when:
+    - not _k3s_installed
+    - not k3s_skip_installation

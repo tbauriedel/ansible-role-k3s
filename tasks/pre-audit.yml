@@ -2,9 +2,14 @@
 - name: Populate service_facts
   ansible.builtin.service_facts:
 
-- name: Check if k3s is installed
+- name: Get stat for k3s binary
+  ansible.builtin.stat:
+    path: "{{ k3s_binary_path }}"
+  register: _k3s_binary_stat
+
+- name: Register k3s installation status
   ansible.builtin.set_fact:
-    _k3s_installed: "{{ ('k3s' in ansible_facts.services) | default(false) }}"
+    _k3s_installed: "{{ _k3s_binary_stat.stat.exists }}"
 
 - name: Check if k3s is running
   ansible.builtin.set_fact:
