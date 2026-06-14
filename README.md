@@ -48,7 +48,7 @@ General variables with default values.
 | k3s_config_service_cidr | `10.43.0.0/16` | CIDR for services |
 | k3s_config_cluster_dns | `10.43.0.10` | IPv4 for the CoreDNS (should be part of the service cidrs) |
 | k3s_config_nodeport_range | `30000-32767` | Range for NodePorts |
-| k3s_config_init_server | `groups['k3s-cluster-init'][0]` | Server to connecto to, used to join a cluster. Only needed when joining nodes to a cluster. By default the first host in group `k3s-cluster-init` will be used. |
+| k3s_config_init_server | `localhost` | Server to connecto to, used to join a cluster. Only needed when joining nodes to a cluster. As default / dummy value, localhost is defined |
 | k3s_config_disable_local_storage | `false` | Disable the local storageclass |
 | k3s_kube_vip | `false` | Apply kube-vip to cluster |
 | k3s_kube_vip_ipv4 | `""` | IPv4 that will be used for the cluster ip |

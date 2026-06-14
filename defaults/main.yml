@@ -27,7 +27,7 @@ k3s_config_cluster_dns: 10.43.0.10
 # range for node-ports
 k3s_config_nodeport_range: 30000-32767
 # server to connect to join a cluster
-k3s_config_init_server: "{{ groups['k3s-cluster-init'][0] }}"
+k3s_config_init_server: "localhost"
 # local storage class
 k3s_config_disable_local_storage: false
 
