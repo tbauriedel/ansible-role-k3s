@@ -7,7 +7,12 @@
   register: _cluster_node_token
   when: not k3s_config_cluster_init
 
-- name: Ensure config folder exists
+- name: Validate k3s config folder
+  ansible.builtin.stat:
+    path: /etc/rancher/ks
+  register: _k3s_config_folder
+
+- name: Create k3s config folder
   ansible.builtin.file:
     state: directory
     path: /etc/rancher/k3s
@@ -15,12 +20,13 @@
     owner: root
     group: root
     recurse: true
+  when: not _k3s_config_folder.stat.exists
 
 - name: Configure k3s
   ansible.builtin.template:
     src: config.yaml.j2
     dest: /etc/rancher/k3s/config.yaml
-    mode: "0644"
+    mode: "0755"
     owner: root
     group: root
   notify:
@@ -41,6 +47,11 @@
 - name: Configure K3s manifests
   when: k3s_kube_vip
   block:
+    - name: Validate k3s manifests folder
+      ansible.builtin.stat:
+        path: /var/lib/rancher/k3s/server/manifests
+      register: _k3s_maniftests_folder
+
     - name: Ensure manifests folder exists
       ansible.builtin.file:
         state: directory
@@ -49,6 +60,7 @@
         owner: root
         group: root
         mode: "0644"
+      when: not _k3s_maniftests_folder.stat.exists
 
     - name: Assert kube-vip settings are provided
       ansible.builtin.assert:
