@@ -7,3 +7,9 @@
 - name: Register k3s installation status
   ansible.builtin.set_fact:
     _k3s_installed: "{{ _k3s_binary_stat.stat.exists }}"
+
+- name: Verify cluster-init host
+  ansible.builtin.wait_for:
+    host: "{{ k3s_config_init_server }}"
+    port: 6443
+  when: not k3s_config_cluster_init
