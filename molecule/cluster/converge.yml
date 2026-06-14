@@ -1,0 +1,13 @@
+---
+- name: Converge cluster-init node
+  hosts: k3s-node01
+  roles:
+    - tbauriedel.k3s
+
+- name: Converge cluster-joiner node
+  hosts: k3s-node02
+  vars:
+    k3s_config_cluster_init: false
+    k3s_config_init_server: k3s-node01
+  roles:
+    - tbauriedel.k3s
