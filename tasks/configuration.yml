@@ -37,3 +37,29 @@
   notify:
     - Systemctl daemon-reload
     - Restart k3s
+
+- name: Configure K3s manifests
+  when: k3s_kube_vip
+  block:
+    - name: Ensure manifests folder exists
+      ansible.builtin.file:
+        state: directory
+        path: /var/lib/rancher/k3s/server/manifests
+        recurse: true
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Assert kube-vip settings are provided
+      ansible.builtin.assert:
+        that:
+          - k3s_kube_vip_ipv4 | length > 0
+          - k3s_kube_vip_interface | length > 0
+
+    - name: Place kube-vip manifest for cluster-ip
+      ansible.builtin.template:
+        src: manifests/kube-vip.yaml.j2
+        dest: /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+        owner: root
+        group: root
+        mode: "0644"

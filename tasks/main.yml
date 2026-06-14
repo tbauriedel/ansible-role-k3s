@@ -1,11 +1,4 @@
 ---
-# k3s installed? k3s running? k3s server type?
-# install k3s
-# configure k3s
-# changes made that are only possible when new init?
-# start k3s
-# cluster status?
-
 - name: Include os-specific variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:

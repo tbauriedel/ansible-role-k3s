@@ -9,5 +9,9 @@ cluster-cidr: "{{ k3s_config_cluster_cidr }}"
 service-cidr: "{{ k3s_config_service_cidr }}"
 cluster-dns: "{{ k3s_config_cluster_dns }}"
 service-node-port-range: "{{ k3s_config_nodeport_range }}"
+{% if not k3s_config_disable_local_storage %}
+disable:
+    - local-storage
+{% endif %}
 
 write-kubeconfig-mode: "0644"

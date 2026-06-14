@@ -20,6 +20,10 @@
 - name: k3s-init # noqa name[casing]
   hosts: k3s-cluster-init
   become: true
+  vars:
+    k3s_kube_vip: true
+    k3s_kube_vip_ipv4: 192.168.121.2
+    k3s_kube_vip_interface: eth0
   roles:
     - tbauriedel.k3s
 
@@ -29,5 +33,28 @@
   vars:
     k3s_config_cluster_init: false
     k3s_config_init_server: k3s-test01
+    k3s_kube_vip: true
+    k3s_kube_vip_ipv4: 192.168.121.2
+    k3s_kube_vip_interface: eth0
   roles:
     - tbauriedel.k3s
+
+- name: Copy kubeconfig
+  hosts: all
+  become: true
+  tasks:
+    - name: Create ~/.kube folder for become_user
+      ansible.builtin.file:
+        state: directory
+        path: ~/.kube
+        group: root
+        mode: "0644"
+
+    - name: Copy kubeconfig to become_user
+      ansible.builtin.copy:
+        remote_src: true
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: ~/.kube/config
+        owner: root
+        group: root
+        mode: "0644"

@@ -21,3 +21,10 @@
     mode: '0755'
     owner: root
     group: root
+
+- name: Enable kubectl auto-completion
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    regex: '^source <\(kubectl completion bash\)'
+    line: source <(kubectl completion bash)
+  when: k3s_enable_kubectl_auto_completion
