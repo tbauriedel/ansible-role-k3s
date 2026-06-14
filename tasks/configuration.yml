@@ -1,0 +1,39 @@
+---
+- name: Slurp node-token for cluster-join from bootstrap node
+  ansible.builtin.slurp:
+    src: /var/lib/rancher/k3s/server/node-token
+  delegate_to: "{{ k3s_config_init_server }}"
+  run_once: true
+  register: _cluster_node_token
+  when: not k3s_config_cluster_init
+
+- name: Ensure config folder exists
+  ansible.builtin.file:
+    state: directory
+    path: /etc/rancher/k3s
+    mode: "0755"
+    owner: root
+    group: root
+    recurse: true
+
+- name: Configure k3s
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/rancher/k3s/config.yaml
+    mode: "0644"
+    owner: root
+    group: root
+  notify:
+    - Systemctl daemon-reload
+    - Restart k3s
+
+- name: Create k3s service file
+  ansible.builtin.template:
+    src: k3s.service.j2
+    dest: /etc/systemd/system/k3s.service
+    mode: "0644"
+    owner: root
+    group: root
+  notify:
+    - Systemctl daemon-reload
+    - Restart k3s

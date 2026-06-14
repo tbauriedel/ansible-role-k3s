@@ -13,3 +13,11 @@
     mode: '0755'
     owner: root
     group: root
+
+- name: Fetch kubectl from source
+  ansible.builtin.get_url:
+    url: "{{ k3s_binary_source_kubectl }}"
+    dest: "{{ k3s_binary_path_kubectl }}"
+    mode: '0755'
+    owner: root
+    group: root

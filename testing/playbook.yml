@@ -1,6 +1,33 @@
 ---
-- name: k3s # noqa name[casing]
+- name: Add /etc/hosts entries to hosts
   hosts: all
   become: true
+  tasks:
+    - name: Fetch setup
+      ansible.builtin.setup:
+
+    - name: Add IP address of all hosts from inventory to all hosts
+      ansible.builtin.lineinfile:
+        dest: /etc/hosts
+        regexp: '.*{{ item }}$'
+        line: "{{ hostvars[item].ansible_default_ipv4.address }} {{ hostvars[item].ansible_fqdn }}"
+        state: present
+      when:
+        - hostvars[item].ansible_fqdn is defined
+        - hostvars[item].ansible_default_ipv4.address is defined
+      with_items: "{{ groups['all'] }}"
+
+- name: k3s-init # noqa name[casing]
+  hosts: k3s-cluster-init
+  become: true
+  roles:
+    - tbauriedel.k3s
+
+- name: k3s-joiner # noqa name[casing]
+  hosts: k3s-cluster-joiner
+  become: true
+  vars:
+    k3s_config_cluster_init: false
+    k3s_config_init_server: k3s-test01
   roles:
     - tbauriedel.k3s

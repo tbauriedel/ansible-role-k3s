@@ -1,0 +1,13 @@
+---
+cluster-init: {{ k3s_config_cluster_init }}
+{% if not k3s_config_cluster_init %}
+server: "https://{{ k3s_config_init_server }}:6443"
+token: "{{ _cluster_node_token.content | b64decode | replace('\n', '')}}"
+{% endif %}
+cluster-domain: "{{ k3s_config_cluster_domain }}"
+cluster-cidr: "{{ k3s_config_cluster_cidr }}"
+service-cidr: "{{ k3s_config_service_cidr }}"
+cluster-dns: "{{ k3s_config_cluster_dns }}"
+service-node-port-range: "{{ k3s_config_nodeport_range }}"
+
+write-kubeconfig-mode: "0644"

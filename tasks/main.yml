@@ -25,6 +25,9 @@
 
 - name: Include k3s installation
   ansible.builtin.include_tasks: installation.yml
-  when:
-    - not _k3s_installed
-    - not k3s_skip_installation
+  #when:
+  #  - not _k3s_installed
+  #  - not k3s_skip_installation
+
+- name: Include k3s configuration
+  ansible.builtin.include_tasks: configuration.yml

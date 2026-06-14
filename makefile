@@ -24,4 +24,4 @@ cleanup:
 test:
 	rm -rf ~/.ansible/roles/tbauriedel.k3s
 	cp -r ../ansible-role-k3s ~/.ansible/roles/tbauriedel.k3s
-	ansible-playbook -i testing/inventory.ini testing/playbook.yml --ask-pass
+	ansible-playbook -i testing/inventory.ini testing/playbook.yml --ask-pass -v
