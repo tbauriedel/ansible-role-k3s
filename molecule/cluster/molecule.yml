@@ -21,4 +21,3 @@ provisioner:
   config_options:
     defaults:
       roles_path: ../../
-  name: ansible

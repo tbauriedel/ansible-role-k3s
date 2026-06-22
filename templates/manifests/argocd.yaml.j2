@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: argocd
+  namespace: kube-system
+spec:
+  repo: https://argoproj.github.io/argo-helm
+  chart: argo-cd
+  version: {{ k3s_storage_nfs_chart_version }}
+  targetNamespace: argocd
+
+  valuesContent: |-
+    configs:
+      params:
+        server.insecure: true
+    server:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hostname: {{ k3s_argocd_ingress_hostname }}
+
+    redis:
+      enabled: true

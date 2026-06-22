@@ -1,9 +1,7 @@
 # ansible-role-k3s
 
 Install and configure K3s (standalone or cluster).  
-[kube-vip](https://kube-vip.io/) can be deployed as part of the installation. See `k3s_kube_vip*` variables for details.
-
-> Most of the configurations for K3s needs to be done while cluster installation. The ansible-role-k3s is intended to use as a installation role, not for changing the configuration afterwards!
+[kube-vip](https://kube-vip.io/) can be deployed as part of the installation. Also supports installation of the kubernetes-csi driver and argocd out-of-the-box. Check variables for details!
 
 The packages needed for K3s are fetched from the official K3s GitHub repository itself during installation.
 
@@ -12,9 +10,14 @@ In case you want to have an air-gapped installation, you can skip the installati
 
 General K3s documentation can be found here: https://docs.k3s.io/
 
+> Most of the configurations for K3s needs to be done while cluster installation. The ansible-role-k3s is intended to use as a installation role, not for changing the configuration afterwards!
+
+
 ## About
 
 The role will install K3s on the target hosts. Standalone and clusters with more than one node is supported.
+
+Supports installation of the kubernetes-csi driver and argocd out-of-the-box. Check variables for details!
 
 ## Requirements
 
@@ -50,6 +53,21 @@ General variables with default values.
 | k3s_config_nodeport_range | `30000-32767` | Range for NodePorts |
 | k3s_config_init_server | `localhost` | Server to connecto to, used to join a cluster. Only needed when joining nodes to a cluster. As default / dummy value, localhost is defined |
 | k3s_config_disable_local_storage | `false` | Disable the local storageclass |
+| k3s_traefik_tls | `false` | Enable TLS by default for the treafik ingress |
+| k3s_traefik_tls_key | `""` | Base64 encoded string of the key to use |
+| k3s_traefik_tls_crt | `""` | Base64 encoded string of the certificate (chain) to use |
+| k3s_storage_nfs | `false` | Install csi-nfs storage driver |
+| k3s_storage_nfs_chart_version | `4.13.3` | Chart version to install csi-nfs driver |
+| k3s_storage_nfs_create_storageclass | `false` | Create a storageclass for nfs-csi |
+| k3s_storage_nfs_storageclass_name | `csi-nfs` | Name name for the created class |
+| k3s_storage_nfs_server | `""` | NFS server that will be used |
+| k3s_storage_nfs_server_share | `""` | Share / path used by the NFS storage driver |
+| k3s_storage_nfs_reclaim_policy | `Delete` | Reclaim policy for the storage class |
+| k3s_storage_nfs_volume_binding_mode | `Immediate` | Volume binding for storage class |
+| k3s_storage_nfs_version | `4.1` | NFS version |
+| k3s_argocd | `false` | Apply argocd to cluster (via helm) |
+| k3s_argocd_chart_version | `3.4.4` | Chart version used to install argocd |
+| k3s_argocd_ingress_hostname | `` | Ingress hostname to use argocd |
 | k3s_kube_vip | `false` | Apply kube-vip to cluster |
 | k3s_kube_vip_ipv4 | `""` | IPv4 that will be used for the cluster ip |
 | k3s_kube_vip_interface | `""` | Interface to apply to |
