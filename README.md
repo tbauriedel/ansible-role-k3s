@@ -1,7 +1,7 @@
 # ansible-role-k3s
 
-Install and configure K3s (standalone or cluster).  
-[kube-vip](https://kube-vip.io/) can be deployed as part of the installation. Also supports installation of the kubernetes-csi driver and argocd out-of-the-box. Check variables for details!
+Ready to use K3s cluster. All in one deployment inspired by the concepts of OpenShift.
+Supports installation of the common components. ArgoCD, kube-vip for HA and NFS storage driver.
 
 The packages needed for K3s are fetched from the official K3s GitHub repository itself during installation.
 
