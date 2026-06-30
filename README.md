@@ -1,7 +1,7 @@
 # ansible-role-k3s
 
-Ready to use K3s cluster. All in one deployment inspired by the concepts of OpenShift.
-Supports installation of the common components. ArgoCD, kube-vip for HA and NFS storage driver.
+Ready to use K3s cluster.  
+All in one deployment inspired by the concepts of OpenShift. Supports installation of the common components. ArgoCD, kube-vip for HA and NFS storage driver.
 
 The packages needed for K3s are fetched from the official K3s GitHub repository itself during installation.
 
