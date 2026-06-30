@@ -1,4 +1,11 @@
 ---
+{{ ansible_managed | comment }}
+node-ip: 192.168.121.59
+tls-san:
+  - {{ ansible_default_ipv4.address }}
+{% if k3s_kube_vip %}
+  - {{ k3s_kube_vip_ipv4 }}
+{% endif %}
 cluster-init: {{ k3s_config_cluster_init }}
 {% if not k3s_config_cluster_init %}
 server: "https://{{ k3s_config_init_server }}:6443"
@@ -13,5 +20,4 @@ service-node-port-range: "{{ k3s_config_nodeport_range }}"
 disable:
     - local-storage
 {% endif %}
-
 write-kubeconfig-mode: "0644"

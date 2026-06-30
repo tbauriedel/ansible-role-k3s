@@ -11,18 +11,18 @@ metadata:
 spec:
   repo: https://argoproj.github.io/argo-helm
   chart: argo-cd
-  version: {{ k3s_storage_nfs_chart_version }}
+  version: {{ k3s_argocd_chart_version }}
   targetNamespace: argocd
-
   valuesContent: |-
     configs:
       params:
         server.insecure: true
+{% if k3s_argocd_ingress_hostname | length > 0 %}
     server:
       ingress:
         enabled: true
         ingressClassName: traefik
         hostname: {{ k3s_argocd_ingress_hostname }}
-
+{$ endif %}
     redis:
       enabled: true

@@ -66,5 +66,5 @@ k3s_storage_nfs_version: 4.1
 
 # Enable argocd in cluster
 k3s_argocd: false
-k3s_argocd_chart_version: 9.7.0
+k3s_argocd_chart_version: 9.7.1
 k3s_argocd_ingress_hostname: ""
