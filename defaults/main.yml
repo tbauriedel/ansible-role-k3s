@@ -31,39 +31,6 @@ k3s_config_init_server: "localhost"
 # local storage class
 k3s_config_disable_local_storage: false
 
-# enable tls for traefik. will patch the ingress to use this TLS certificate by default
-k3s_traefik_tls: false
-# base64 encoded key
-k3s_traefik_tls_key: ""
-# base64 encoded certificate (with chain)
-k3s_traefik_tls_crt: ""
-
-# place kube-vip on cluster
-k3s_kube_vip: false
-# ipv4 for the cluster ip
-k3s_kube_vip_ipv4: ""
-# interface to apply to
-k3s_kube_vip_interface: ""
-
-# Enable nfs storage driver
-k3s_storage_nfs: false
-# helm chart version to use
-k3s_storage_nfs_chart_version: 4.13.3
-# create storageclass
-k3s_storage_nfs_create_storageclass: true
-# Name for the storage class that will be created
-k3s_storage_nfs_storageclass_name: csi-nfs
-# nfs server
-k3s_storage_nfs_server: ""
-# share to use on the nfs server
-k3s_storage_nfs_server_share: ""
-# Reclaim policy for the storage class
-k3s_storage_nfs_reclaim_policy: Delete
-# Volume binding for storage class
-k3s_storage_nfs_volume_binding_mode: Immediate
-# nfs version
-k3s_storage_nfs_version: 4.1
-
 # Enable argocd in cluster
 k3s_argocd: false
 k3s_argocd_chart_version: 9.7.1

@@ -23,6 +23,16 @@ spec:
         enabled: true
         ingressClassName: traefik
         hostname: {{ k3s_argocd_ingress_hostname }}
-{$ endif %}
+{% endif %}
     redis:
       enabled: true
+{% if k3s_argocd_gitops_enable %}
+---
+project: default
+source:
+  repoURL: {{ k3s_argocd_gitops_url }}
+  path: {{ k3s_argocd_gitops_path }}
+  targetRevision: {{ k3s_argocd_gitops_target }}
+destination:
+  server: https://kubernetes.default.svc
+{% endif %}
