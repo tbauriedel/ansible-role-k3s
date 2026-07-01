@@ -7,9 +7,13 @@ k3s_binary_source: "https://github.com/k3s-io/k3s/releases/download/v{{ k3s_rele
 # k3s binary location on target host
 k3s_binary_path: /usr/local/bin/k3s
 
+# release for k3s
 k3s_version_kubectl: 1.36.0
+# source to get k3s binary from
 k3s_binary_source_kubectl: "https://dl.k8s.io/release/v{{ k3s_version_kubectl }}/bin/linux/amd64/kubectl"
+# local path to place k3s binary
 k3s_binary_path_kubectl: /usr/local/bin/kubectl
+# enable auto-completion for become_user
 k3s_enable_kubectl_auto_completion: true
 
 # type of node
@@ -30,8 +34,22 @@ k3s_config_nodeport_range: 30000-32767
 k3s_config_init_server: "localhost"
 # local storage class
 k3s_config_disable_local_storage: false
+# cluster HA vip
+k3s_config_ha_ip: ""
 
 # Enable argocd in cluster
 k3s_argocd: false
+# chart version to use
 k3s_argocd_chart_version: 9.7.1
-k3s_argocd_ingress_hostname: ""
+# default ingress name
+k3s_argocd_ingress_hostname: "argo.example.com"
+# enable initial argocd gitops
+k3s_argocd_gitops_enable: false
+# url to get applications
+k3s_argocd_gitops_url: ""
+# path to use inside the url
+k3s_argocd_gitops_path: ""
+# target branch / release of repo
+k3s_argocd_gitops_target: main
+# values file for cluster
+k3s_argocd_gitops_values_file: ""

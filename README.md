@@ -55,6 +55,7 @@ General variables with default values.
 | k3s_config_nodeport_range | `30000-32767` | Range for NodePorts |
 | k3s_config_init_server | `localhost` | Server to connecto to, used to join a cluster. Only needed when joining nodes to a cluster. As default / dummy value, localhost is defined |
 | k3s_config_disable_local_storage | `false` | Disable the local storageclass |
+| k3s_config_ha_ip | `""` | When using a cluster ip, it should be added to tls-san |
 | k3s_argocd | `false` | Apply argocd to cluster (via helm) |
 | k3s_argocd_chart_version | `3.4.4` | Chart version used to install argocd |
 | k3s_argocd_ingress_hostname | `` | Ingress hostname to use argocd |
@@ -62,6 +63,7 @@ General variables with default values.
 | k3s_argocd_gitops_url | `""` | Repo URL to get gitops config from |
 | k3s_argocd_gitops_path | `""` | Path inside the repository to bootstrap from |
 | k3s_argocd_gitops_target `""` | Branch / release to use |
+| k3s_argocd_gitops_values_file | `""` | Value file to use |
 
 ##### OS-specific variables
 

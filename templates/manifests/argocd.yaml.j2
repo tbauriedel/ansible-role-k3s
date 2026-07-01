@@ -28,11 +28,26 @@ spec:
       enabled: true
 {% if k3s_argocd_gitops_enable %}
 ---
-project: default
-source:
-  repoURL: {{ k3s_argocd_gitops_url }}
-  path: {{ k3s_argocd_gitops_path }}
-  targetRevision: {{ k3s_argocd_gitops_target }}
-destination:
-  server: https://kubernetes.default.svc
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k3s-cluster-bootstrap
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: {{ k3s_argocd_gitops_url }}
+    path: {{ k3s_argocd_gitops_path }}
+    targetRevision: {{ k3s_argocd_gitops_target }}
+{% if k3s_argocd_gitops_values_file | length > 0 %}
+    helm:
+      valueFiles:
+      - {{ k3s_argocd_gitops_values_file }}
 {% endif %}
+  destination:
+    server: https://kubernetes.default.svc
+{% endif %}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
