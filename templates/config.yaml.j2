@@ -3,8 +3,8 @@
 node-ip: {{ ansible_default_ipv4.address }}
 tls-san:
   - {{ ansible_default_ipv4.address }}
-{% if k3s_kube_vip %}
-  - {{ k3s_kube_vip_ipv4 }}
+{% if k3s_config_ha_ip | length > 0 %}
+  - {{ k3s_config_ha_ip }}
 {% endif %}
 cluster-init: {{ k3s_config_cluster_init }}
 {% if not k3s_config_cluster_init %}

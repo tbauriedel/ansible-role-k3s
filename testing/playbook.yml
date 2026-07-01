@@ -21,11 +21,12 @@
   hosts: k3s-cluster-init
   become: true
   vars:
+    k3s_config_ha_ip: 192.168.121.10
     k3s_argocd: true
     k3s_argocd_ingress_hostname: argocd.example.com
     k3s_argocd_gitops_enable: true
     k3s_argocd_gitops_url: https://github.com/tbauriedel/k3s-cluster-gitops
-    k3s_argocd_gitops_path: gitops/cluster-bootstrap
+    k3s_argocd_gitops_path: gitops/apps/cluster-bootstrap
     k3s_argocd_gitops_target: main
   roles:
     - tbauriedel.k3s
@@ -34,6 +35,7 @@
   hosts: k3s-cluster-joiner
   become: true
   vars:
+    k3s_config_ha_ip: 192.168.121.10
     k3s_config_cluster_init: false
     k3s_config_init_server: k3s-test01
   roles:
