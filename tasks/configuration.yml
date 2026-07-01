@@ -59,58 +59,6 @@
     mode: "0644"
   when: not _k3s_maniftests_folder.stat.exists
 
-- name: Configure ingress traefik tls
-  when: k3s_traefik_tls
-  block:
-    - name: Assert traefilk tls settings are provided
-      ansible.builtin.assert:
-        that:
-          - k3s_traefik_tls_key | length > 0
-          - k3s_traefik_tls_crt | length > 0
-
-    - name: Place ingress-traefik-tls manifest for TLS
-      ansible.builtin.template:
-        src: manifests/ingress-traefik-tls.yaml.j2
-        dest: /var/lib/rancher/k3s/server/manifests/ingress-traefik-tls.yaml
-        owner: root
-        group: root
-        mode: "0644"
-
-- name: Configure kube-vip
-  when: k3s_kube_vip
-  block:
-    - name: Assert kube-vip settings are provided
-      ansible.builtin.assert:
-        that:
-          - k3s_kube_vip_ipv4 | length > 0
-          - k3s_kube_vip_interface | length > 0
-
-    - name: Place kube-vip manifest for cluster-ip
-      ansible.builtin.template:
-        src: manifests/kube-vip.yaml.j2
-        dest: /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
-        owner: root
-        group: root
-        mode: "0644"
-
-- name: Configure nfs-csi storage driver
-  when:
-    - k3s_storage_nfs
-  block:
-    - name: Assert nfs-csi settings are provided
-      ansible.builtin.assert:
-        that:
-          - k3s_storage_nfs_server | length > 0
-          - k3s_storage_nfs_server_share | length > 0
-
-    - name: Place manifest for csi-nfs-driver
-      ansible.builtin.template:
-        src: manifests/csi-nfs-driver.yaml.j2
-        dest: /var/lib/rancher/k3s/server/manifests/csi-nfs-driver.yaml
-        owner: root
-        group: root
-        mode: "0644"
-
 - name: Configure argocd
   when: k3s_argocd
   block:
