@@ -19,6 +19,8 @@ The role will install K3s on the target hosts. Standalone and clusters with more
 While installation, an ArgoCD can be deployed into the cluster. Also a initial cluster bootstrap gitops repository can be given, that will be synced automatically into the cluster.  
 Additional deployment like storage driver, Traefik pacthes, monitoring, ... should be part of that initial gitops deployment.
 
+An example gitops cluster-bootstrap can be found here: https://github.com/tbauriedel/k3s-cluster-gitops
+
 ## Requirements
 
 A working name resolution must be in place.
